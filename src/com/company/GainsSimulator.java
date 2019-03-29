@@ -5,10 +5,18 @@ public class GainsSimulator {
     private double gainsPerWeek;
     private double startingWeight;
     private final double diminishingReturnsValue;
+    private double startingReps;
+    private double startingTime;
 
     public GainsSimulator(int gainsPerWeek, int startingWeight, double diminishingReturnsValue) {
         this.gainsPerWeek = gainsPerWeek;
         this.startingWeight = startingWeight;
+        this.diminishingReturnsValue = diminishingReturnsValue;
+    }
+
+    public GainsSimulator(int gainsPerWeek, int startingReps, double diminishingReturnsValue) {
+        this.gainsPerWeek = gainsPerWeek;
+        this.startingReps = startingReps;
         this.diminishingReturnsValue = diminishingReturnsValue;
     }
 
@@ -53,6 +61,22 @@ public class GainsSimulator {
         int total = (int)(adjustedStartingWeight + gainsPerWeek);
         StringBuilder result = new StringBuilder();
         result.append(total - (total % 5));
+        return result.toString();
+
+    }
+
+    public String generateIncreasingRepValue() {
+
+        //Induce natural plato
+        gainsPerWeek = gainsPerWeek * diminishingReturnsValue;
+
+        //Add gains since last workout
+        startingReps = startingReps + gainsPerWeek;
+
+        //Add total
+        StringBuilder result = new StringBuilder();
+        result.append(startingReps - (startingReps % 5));
+
         return result.toString();
 
     }
